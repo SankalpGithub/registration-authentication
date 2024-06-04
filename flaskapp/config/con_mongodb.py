@@ -1,9 +1,10 @@
 import pymongo
-
+import os
 def con():
     try:
-        myclient = pymongo.MongoClient("mongodb+srv://sankalp2004gaikwad:sankalpMongodb%402004gaikwad@cluster0.rhfrqdl.mongodb.net/")
+        connection = os.getenv('MONGO_CONNECTION_STRING')
+        myclient = pymongo.MongoClient(connection)
         print("MongoDB connected successfully")
-        return myclient["attendence"]
+        return myclient["register-authenticate"]
     except:
         print("Error Connecting Database")
