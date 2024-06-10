@@ -1,1 +1,1 @@
-#Flask app for standard registration and authentication
+**Flask app for standard registration and authentication**
