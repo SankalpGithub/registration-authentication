@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from flaskapp.routes import registration, verify_otp, authentication
+from flaskapp.routes import registration, verify_otp, authentication, reset_password
 import os
 
 app = Flask(__name__)
@@ -26,6 +26,16 @@ def verifyOtp():
 @app.route('/login', methods=['POST'])
 def login():
     return authentication.login()
+
+#resetpassword route
+@app.route('/resetpassword', methods=['POST'])
+def resetpassword():
+    return reset_password.resetpassword()
+
+#verify_reset_pass route
+@app.route('/verify_reset_pass', methods=['GET'])
+def verify_reset_pass():
+    return reset_password.verify_reset_pass()
 
 if __name__ == '__main__':
     app.run(debug=True)
