@@ -1,6 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import request, jsonify
 import random
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import generate_password_hash
 from dotenv import load_dotenv
 from flaskapp.config import con_mongodb
 from flaskapp.utils import send_gmail
@@ -15,7 +15,7 @@ myCol = myClient['users']
 #route to register user and send otp
 def registration():
     try:
-
+        
         # Get the JSON data
         _json = request.json
         name = _json.get('name')
@@ -26,7 +26,7 @@ def registration():
         # Validate the JSON data
         if not name:
             return jsonify({'error': 'Name is required', 'status': False}), 400
-        if not username:    
+        if not username:
             return jsonify({'error': 'Username is required', 'status': False}), 400
         if not email:
             return jsonify({'error': 'Email is required', 'status': False}), 400
@@ -96,5 +96,27 @@ def registration():
         resp = jsonify(f"Exception: {e}")
         return resp
     
-def checkVerify():
-    pass
+def checkVerify(id,arg2):
+    user = myCol.find_one({'_id': id})
+    if user['isEmailVerify']:
+        pass
+    elif not user['isEmailVerify']:
+        print(deleteUserbyId(id))
+
+
+#delete user by delete method
+def deleteUserbyId(id):
+    try:
+        if myCol.find_one({'_id': id}):
+            # Delete the user with the custom ID
+            myCol.delete_one({'_id': id})
+            resp = jsonify({'message': 'User deleted successfully', 'status': True})
+            resp.status_code = 200
+            return resp
+        else:
+            pass # return jsonify({'message': 'User not found', 'status': False}),404
+
+    except (ValueError, TypeError) as e:
+    # Handle multiple exceptions
+        resp = jsonify(f"Exception: {e}")
+        return resp

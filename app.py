@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from flaskapp.routes import registration
+from flaskapp.routes import registration, verify_otp, authentication
 import os
 
 app = Flask(__name__)
@@ -16,6 +16,16 @@ def home():
 @app.route('/registration', methods=['POST'])
 def register():
     return registration.registration()
+
+#verify otp route
+@app.route('/verify_otp', methods=['POST'])
+def verifyOtp():
+    return verify_otp.verifyOtp()
+
+#login route
+@app.route('/login', methods=['POST'])
+def login():
+    return authentication.login()
 
 if __name__ == '__main__':
     app.run(debug=True)
