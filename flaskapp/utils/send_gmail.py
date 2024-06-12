@@ -1,9 +1,18 @@
+"""
+This module contains the send_otp_email method,
+which is used to send an OTP email to the user.
+"""
+
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from flask import jsonify
 
 
 def send_otp_email(email,password,to_email,body,subject):
+    """
+    This method is used to send an OTP email to the user.
+    """
     try:
         host = "smtp-mail.outlook.com"
         port = 587
@@ -14,7 +23,7 @@ def send_otp_email(email,password,to_email,body,subject):
         message['To']= to_email
 
         html = body
-        
+
         html_part = MIMEText(html, 'html')
         message.attach(html_part)
 
@@ -26,7 +35,7 @@ def send_otp_email(email,password,to_email,body,subject):
 
         return True
 
-    except Exception as e:
-        return False
-    
-# print(send_otp_email("sankalp2004developer@outlook.com", "Developer@2004", "sankalp2004gaikwad@gmail.com", 3456))
+    except (ValueError, TypeError) as e:
+    # Handle multiple exceptions
+        resp = jsonify(f"Exception: {e}"),404
+        return resp
