@@ -34,10 +34,10 @@ def login():
             if is_email_verify:
                 if check_password_hash(user['password'], password):
                     _id = user['_id']
-                    auth_token = generate_authtoken.generate_token(id,securityKey,None)
+                    auth_token = generate_authtoken.generate_token(_id,securityKey,None)
                     data = {
                         "authToken": auth_token,
-                        'status': True
+                        "status": True
                     }
                     resp = jsonify(data)
                     resp.status_code = 200
