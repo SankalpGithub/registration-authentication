@@ -37,7 +37,7 @@ def login():
                     auth_token = generate_authtoken.generate_token(_id,securityKey,None)
                     data = {
                         "authToken": auth_token,
-                        'status': True
+                        "status": True
                     }
                     resp = jsonify(data)
                     resp.status_code = 200
