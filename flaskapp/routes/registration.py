@@ -180,7 +180,7 @@ def start_timer(count_doc):
     This method is to start the timer thread to check the verify the email
     """
     global timer_thread
-    timer_thread = threading.Timer(60.0, check_verify, args=(count_doc, None))
+    timer_thread = threading.Timer(300.0, check_verify, args=(count_doc, None))
     timer_thread.start()
 
 def stop_timer():

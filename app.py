@@ -53,7 +53,7 @@ def verify_reset_pass():
     return reset_password.verify_reset_pass()
 
 #verify_reset_pass route
-@app.route('/reset_password', methods=['GET'])
+@app.route('/reset_user_password', methods=['GET'])
 def reset_user_password():
     """
     This method is assign to verify_reset_password route to reset the user
